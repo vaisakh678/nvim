@@ -16,6 +16,7 @@ vim.opt.rtp:prepend(lazypath)
 
 
 require("lazy").setup({
+
 	{
         -- theme
 		"catppuccin/nvim", name = "catppuccin", priority = 1000,
@@ -29,27 +30,31 @@ require("lazy").setup({
 			vim.cmd.colorscheme "catppuccin"
 		end,
 	},
+
 	{
         -- telescope / searching
 		'nvim-telescope/telescope.nvim', tag = '0.1.8',
 		dependencies = { 'nvim-lua/plenary.nvim' }
 	},
+
 	{
         -- file tree
 		"nvim-tree/nvim-tree.lua",
 		version = "*",
-		require = {
+		dependencies = {
 			"nvim-tree/nvim-web-devicons",
 		},
 		config = function()
 			require("nvim-tree").setup({})
 		end,
 	},
-	{
+
+    {
         -- commenting
-	    "numtostr/Comment.nvim",
-	    config = function()
-		require("Comment").setup()
-	    end,
-	},
+        'numToStr/Comment.nvim',
+        opts = {
+            -- add any options here
+        }
+    }
+
 })
