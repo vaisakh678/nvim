@@ -22,3 +22,6 @@ vim.keymap.set("n", "<leader>e", ":NvimTreeFindFileToggle<Cr>")
 -- comment
 vim.keymap.set("n", "<leader>/", "<Plug>(comment_toggle_linewise_current)")
 vim.keymap.set("v", "<leader>/", "<Plug>(comment_toggle_linewise_visual)")
+
+-- fmt
+vim.keymap.set("n", "<leader>fm", vim.lsp.buf.format)
