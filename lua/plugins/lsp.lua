@@ -54,6 +54,38 @@ return {
                 function(server_name)
                     require('lspconfig')[server_name].setup({})
                 end,
+
+
+                ["gopls"] = function()
+                    require("lspconfig").gopls.setup({
+                        settings = {
+                            gopls = {
+                                gofumpt = true, -- Use gofumpt for better formatting
+                                staticcheck = true, -- Run static analysis
+                                completeUnimported = true, -- ? Auto-import missing packages
+                                usePlaceholders = true, -- Add placeholders for function parameters
+                                analyses = {
+                                    unusedparams = true,
+                                    unreachable = true,
+                                },
+                            },
+                        },
+                        on_attach = function(client, bufnr)
+                            -- Auto-format and organize imports on save
+                            vim.api.nvim_create_autocmd("BufWritePre", {
+                                buffer = bufnr,
+                                callback = function()
+                                    vim.lsp.buf.format({ async = false })
+                                    vim.lsp.buf.code_action({
+                                        context = { only = { "source.organizeImports" } },
+                                        apply = true,
+                                    })
+                                end,
+                            })
+                        end,
+                    })
+                end,
+
             }
         })
     end
